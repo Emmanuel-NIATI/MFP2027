@@ -1,0 +1,6 @@
+{
+    "files.exclude": {
+        ".microbit-stubs": true
+    },
+    "python.analysis.stubPath": ".microbit-stubs/microbit/lib"
+}
