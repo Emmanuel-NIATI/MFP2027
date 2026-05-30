@@ -2,5 +2,12 @@
     "files.exclude": {
         ".microbit-stubs": true
     },
-    "python.analysis.stubPath": ".microbit-stubs/microbit/lib"
+    "python.analysis.stubPath": ".microbit-stubs/microbit/lib",
+    "python-envs.pythonProjects": [
+        {
+            "path": "01_TM1637/test_tm1637.py",
+            "envManager": "ms-python.python:venv",
+            "packageManager": "ms-python.python:pip"
+        }
+    ]
 }
