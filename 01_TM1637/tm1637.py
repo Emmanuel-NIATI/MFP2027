@@ -1,4 +1,5 @@
 from microbit import *
+from time import sleep_us
 
 """
 
@@ -140,6 +141,8 @@ class TM1637(object):
     TM1637_DSP_ON = 0x08                # display on
     TM1637_DSP_OFF = 0x00               # display off
 
+    TM1637_DELAY = 10                   # 10us delay between clk/dio pulses
+
     NONE_SEGMENT = 0x00
     DIGIT_SPACE = ' '
     NUMBER_NULL = -1
@@ -157,6 +160,8 @@ class TM1637(object):
         self._display_status = self.TM1637_DSP_ON
         self._current_data = self.DATA_CLEAR
         
+        sleep_us(self.TM1637_DELAY)
+
         # self._start()
         # self._stop()
         # self._cmd_data()
@@ -232,8 +237,6 @@ class TM1637(object):
 
         for i in range(0, 8):
 
-            self._clk.write_digital(False)
-
             if byte & 0x01:
                 self._dio.write_digital(True)
             else:
@@ -241,12 +244,18 @@ class TM1637(object):
                 
             byte >> i
             
+            sleep_us(self.TM1637_DELAY)
             self._clk.write_digital(True)
-            self._clk.write_digital(True)
+            sleep_us(self.TM1637_DELAY)
+            self._clk.write_digital(False)
+            sleep_us(self.TM1637_DELAY)
 
         self._clk.write_digital(False)
+        sleep_us(self.TM1637_DELAY)
         self._clk.write_digital(True)
+        sleep_us(self.TM1637_DELAY)
         self._clk.write_digital(False)
+        sleep_us(self.TM1637_DELAY)
 
 
     def show_data(self, data):
@@ -393,6 +402,7 @@ class TM1637(object):
 
 tm = TM1637(clk=pin0, dio=pin1, brightness=2)
 
+tm.show_digit(['a','b','c','d'])
 
 
 while True:
