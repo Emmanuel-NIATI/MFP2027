@@ -400,10 +400,9 @@ class TM1637(object):
         self.show_data(encoded_data)
 
 
-tm = TM1637(clk=pin0, dio=pin1, brightness=2)
+tm = TM1637(clk=pin1, dio=pin2, brightness=2)
 
-tm.show_digit(['a','b','c','d'])
-
+tm.show_binary([0b11111111,0b11111111,0b11111111,0b11111111,0b11111111,0b11111111])
 
 while True:
     pin8.write_digital(True)
